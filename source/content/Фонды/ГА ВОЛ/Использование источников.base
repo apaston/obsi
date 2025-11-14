@@ -1,0 +1,38 @@
+formulas:
+  ИО: file.folder.split("/")[4]
+  F1: file(file.backlinks[0])
+  F2: file(file.backlinks[1])
+  Q: file.backlinks.length
+  F3: |
+    file(file.backlinks[2])
+views:
+  - type: table
+    name: Таблица
+    filters:
+      and:
+        - file.inFolder("Фонды/ГА ВОЛ")
+        - file.ext.containsAny("jpg", "png")
+    order:
+      - file.name
+      - formula.F1
+      - formula.F2
+      - formula.F3
+      - formula.Q
+    sort:
+      - property: formula.F2
+        direction: ASC
+      - property: file.backlinks
+        direction: DESC
+      - property: file.folder
+        direction: DESC
+      - property: formula.ИО
+        direction: ASC
+      - property: file.basename
+        direction: ASC
+    columnSize:
+      file.name: 216
+      formula.F1: 282
+      formula.F2: 237
+      formula.F3: 124
+  - type: table
+    name: представление
